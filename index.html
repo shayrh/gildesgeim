@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>המאבק על גילדסגיים 6: אינפוגרפיקה</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Assistant', sans-serif;
+            background-color: #f0f8ff;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#CAF0F8] text-[#004E89]">
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-bold mb-2">המאבק על גילדסגיים 6</h1>
+            <p class="text-xl md:text-2xl text-[#0077B6]">תוכנית בנייה שהשתנתה מקצה לקצה ומאיימת על אופי שכונת קריניצי השקטה</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <section id="introduction" class="text-center bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">ממגורים לתעסוקה: שינוי ייעוד דרמטי</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">בלב שכונת מגורים שלווה, תוכנית לבניין דירות להשכרה הפכה, לאחר שלב ההתנגדויות הראשוני, למרכז תעסוקה ורפואה רחב היקף. התושבים, שהתנגדו לתוכנית המקורית, עומדים כעת בפני מציאות חדשה ומדאיגה אף יותר, עם חלון הזדמנויות צר להשמיע את קולם.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-[#004E89]">4,000</div>
+                        <div class="text-2xl text-[#0077B6]">מ"ר שטחי תעסוקה ורפואה</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-6xl font-bold text-[#004E89]">7</div>
+                        <div class="text-2xl text-[#0077B6]">קומות מעל קומת מסחר</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="timeline" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-8">מסלול התכנון: כיצד הגענו לכאן?</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8 text-center">ההליך התכנוני של הפרויקט עבר תהפוכות משמעותיות. השינוי הקריטי ביותר התרחש לאחר שהציבור כבר הביע את התנגדותו לתוכנית המקורית, מה שמעלה שאלות קשות לגבי ההליך התכנוני הראוי.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 rtl:md:space-x-reverse">
+                    <div class="flex items-center flex-col md:flex-row">
+                        <div class="p-4 bg-[#90E0EF] rounded-lg text-center shadow">
+                            <h3 class="font-bold">הצעה ראשונית</h3>
+                            <p>מגדל תעסוקה (14 קומות)</p>
+                        </div>
+                        <div class="text-4xl mx-4 text-[#0077B6] transform md:-rotate-0 rotate-90">➔</div>
+                    </div>
+                    <div class="flex items-center flex-col md:flex-row">
+                        <div class="p-4 bg-[#90E0EF] rounded-lg text-center shadow">
+                            <h3 class="font-bold">תוכנית שהופקדה</h3>
+                            <p>בניין מגורים (9 קומות)</p>
+                        </div>
+                        <div class="text-4xl mx-4 text-[#0077B6] transform md:-rotate-0 rotate-90">➔</div>
+                    </div>
+                     <div class="flex items-center flex-col md:flex-row">
+                        <div class="p-4 bg-[#0077B6] text-white rounded-lg text-center shadow-md">
+                            <h3 class="font-bold">שלב ההתנגדויות</h3>
+                            <p>התושבים מביעים חשש</p>
+                        </div>
+                        <div class="text-4xl mx-4 text-red-500 transform md:-rotate-0 rotate-90">➔</div>
+                    </div>
+                    <div class="flex items-center flex-col md:flex-row">
+                        <div class="p-4 bg-red-100 border-2 border-red-500 rounded-lg text-center shadow-xl">
+                            <h3 class="font-bold text-red-700">החלטה חדשה</h3>
+                            <p class="text-red-600">מרכז תעסוקה ורפואה (7+1 קומות)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="parking" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-2">אפס חניה, אינסוף בעיות</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8 text-center">ההחלטה השנויה ביותר במחלוקת היא קביעת תקן חניה 0 עבור שטחי המסחר והמרפאות. החלטה זו מתעלמת ממצוקת החניה הקיימת ומהעובדה שמטופלים ועובדים רבים יגיעו ברכב פרטי, ויציפו את רחובות השכונה.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-4">תקן החניה למרפאות ומסחר</h3>
+                        <div class="chart-container">
+                            <canvas id="parkingDonutChart"></canvas>
+                        </div>
+                        <p class="text-center mt-4">התוכנית אינה מספקת ולו מקום חניה אחד עבור שטחי המסחר והמרפאות, בניגוד לתקנות המקובלות לשימושים רפואיים.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-4">הפער בין הדרישה למציאות</h3>
+                        <div class="chart-container">
+                            <canvas id="parkingBarChart"></canvas>
+                        </div>
+                         <p class="text-center mt-4">בעוד התקנות דורשות עשרות מקומות חניה עבור מרפאות בהיקף כזה, התוכנית מציעה אפס. הפער יוביל לכאוס תחבורתי.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="light-air" class="bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-8">לחיות בצילו של מגדל</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8 text-center">אחת הדאגות המרכזיות של התושבים היא חסימת אור שמש ואוויר. הוועדה אישרה הרחקת קו הבניין במטר אחד בלבד, פתרון סמלי שאינו נותן מענה אמיתי להשפעה של בניין בן 7 קומות על הבתים הצמודים.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+                    <div class="text-center p-4 border rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4">המצב כיום (קו בניין 4 מ')</h3>
+                        <div class="flex justify-center items-end h-48 space-x-2 rtl:space-x-reverse">
+                            <div class="w-24 h-24 bg-[#90E0EF] rounded-t-lg flex items-center justify-center text-sm">בית קיים</div>
+                            <div class="w-24 h-16 bg-[#0077B6] rounded-t-lg flex items-center justify-center text-sm text-white">בית שכן</div>
+                        </div>
+                        <p class="mt-2 text-sm">מרחק סביר בין מבנים נמוכים</p>
+                    </div>
+                    <div class="text-center p-4 border-2 border-red-500 bg-red-50 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-red-700">התוכנית המוצעת (קו בניין 5 מ')</h3>
+                        <div class="flex justify-center items-end h-48 space-x-2 rtl:space-x-reverse">
+                            <div class="w-24 h-48 bg-[#004E89] rounded-t-lg flex items-center justify-center text-sm text-white">בניין חדש (7 קומות)</div>
+                            <div class="w-24 h-16 bg-[#0077B6] rounded-t-lg flex items-center justify-center text-sm text-white relative">
+                                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">צל</div>
+                            </div>
+                        </div>
+                        <p class="mt-2 text-sm text-red-600">תוספת של מטר אחד במרחק אינה מפצה על תוספת הגובה הדרמטית וההצללה הכבדה.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Gemini Features Section -->
+            <section id="gemini-features" class="bg-white p-8 rounded-xl shadow-lg text-center">
+                <h2 class="text-3xl font-bold mb-4">כלים מתקדמים למאבק ✨</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">השתמשו בכלי הבינה המלאכותית שלנו כדי ליצור טיוטת התנגדות חדשה או להאזין לסיכום התוכנית.</p>
+                
+                <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+                    <button id="generateDraftBtn" class="bg-[#00A6FB] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#0077B6] transition-colors duration-300">
+                        ✨ יצירת טיוטת התנגדות חדשה
+                    </button>
+                    <button id="playSummaryBtn" class="bg-[#00A6FB] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#0077B6] transition-colors duration-300">
+                        🎧 הקראת סיכום התוכנית
+                    </button>
+                </div>
+                
+                <div id="loadingIndicator" class="hidden text-center text-[#0077B6] mb-4">
+                    <div class="animate-spin inline-block w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full" role="status"></div>
+                    <span class="ml-2">הפקת תוכן...</span>
+                </div>
+                
+                <textarea id="draftTextarea" class="w-full h-64 p-4 border-2 border-[#90E0EF] rounded-lg bg-[#E0FFFF] text-[#004E89] text-lg hidden" readonly placeholder="טיוטת ההתנגדות תוצג כאן..."></textarea>
+                <audio id="ttsAudio" controls class="w-full mt-4 hidden"></audio>
+            </section>
+            <!-- End Gemini Features Section -->
+
+            <section id="conclusion" class="text-center bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-4">הקול שלכם קובע: המאבק לא תם</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-6">הוועדה פתחה חלון הזדמנויות קצר, במסגרת סעיף 106(ב) לחוק, להגשת התנגדויות חדשות המתמקדות בשינויים הדרמטיים בתוכנית. זהו רגע קריטי עבור הקהילה להשמיע את קולה ולהגן על איכות החיים בשכונה.</p>
+                <div class="bg-[#004E89] text-white p-6 rounded-lg inline-block">
+                    <div class="text-5xl font-bold">נותרו ימים ספורים</div>
+                    <div class="text-xl">להגשת התנגדות ושינוי ההחלטה!</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // --- Chart.js Setup ---
+        function wrapLabel(str, maxWidth) {
+            if (str.length <= maxWidth) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            return Array.isArray(label) ? label.join(' ') : label;
+        };
+        
+        const sharedChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { family: "'Assistant', sans-serif", size: 14 }, color: '#004E89' }},
+                tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: "'Assistant', sans-serif" }, titleFont: { family: "'Assistant', sans-serif" }}
+            }
+        };
+
+        const parkingDonutCtx = document.getElementById('parkingDonutChart').getContext('2d');
+        new Chart(parkingDonutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['חניה מסופקת למסחר ומרפאות'],
+                datasets: [{ label: 'מקומות חניה', data: [100], backgroundColor: ['#E63946'], borderColor: ['#FFFFFF'], borderWidth: 2 }]
+            },
+            options: { ...sharedChartOptions, plugins: { ...sharedChartOptions.plugins, tooltip: { ...sharedChartOptions.plugins.tooltip, callbacks: { ...sharedChartOptions.plugins.tooltip.callbacks, label: (context) => '0 מקומות חניה' }}}, cutout: '60%' }
+        });
+
+        const parkingBarCtx = document.getElementById('parkingBarChart').getContext('2d');
+        new Chart(parkingBarCtx, {
+            type: 'bar',
+            data: {
+                labels: [ wrapLabel('חניה נדרשת לפי תקנות למרפאות', 18), wrapLabel('חניה מסופקת בתוכנית', 18) ],
+                datasets: [{ label: 'מספר מקומות חניה', data: [50, 0], backgroundColor: ['#0077B6', '#E63946'], borderColor: ['#004E89', '#A82430'], borderWidth: 1 }]
+            },
+            options: { ...sharedChartOptions, scales: { y: { beginAtZero: true, ticks: { color: '#004E89', font: { family: "'Assistant', sans-serif" }}, grid: { color: '#90E0EF' }}, x: { ticks: { color: '#004E89', font: { family: "'Assistant', sans-serif", size: 12 }}, grid: { display: false }}}}
+        });
+
+        // --- Gemini API Features ---
+
+        const generateDraftBtn = document.getElementById('generateDraftBtn');
+        const playSummaryBtn = document.getElementById('playSummaryBtn');
+        const draftTextarea = document.getElementById('draftTextarea');
+        const ttsAudio = document.getElementById('ttsAudio');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+
+        async function generateObjectionDraft() {
+            try {
+                loadingIndicator.classList.remove('hidden');
+                generateDraftBtn.disabled = true;
+                playSummaryBtn.disabled = true;
+                draftTextarea.classList.add('hidden');
+                ttsAudio.classList.add('hidden');
+                draftTextarea.value = '';
+
+                const prompt = `
+                Draft a formal and persuasive objection letter in Hebrew to the Tel Aviv District Planning and Building Committee regarding a new construction plan (Plan 506-0721704) at 6 Gildesgeim St. in Ramat Gan.
+                The letter should be from a resident of the area and should be structured clearly with numbered points.
+                The main arguments to include are:
+                1.  The dramatic change in the plan's purpose from residential (9 stories) to a large commercial and medical center (7 stories plus commerce). This change, approved after the initial objection phase, fundamentally alters the character of the quiet residential neighborhood.
+                2.  The committee's decision to grant a "0 parking standard" for the commercial/medical spaces is unrealistic and harmful. It ignores the existing severe parking shortage and will lead to significant traffic congestion and competition for parking spaces, directly impacting the quality of life of long-term residents.
+                3.  The committee's insufficient response to the issue of sunlight blockage. The decision to increase the setback by only one meter is a token gesture that does not prevent a 7-story building from casting a permanent shadow on adjacent existing homes, violating the residents' right to light and air.
+                4.  Emphasize that these changes were made after the public comment period, and this new plan deserves a full, fresh review and consideration of the new, more significant, objections.
+                The tone should be formal and determined.
+                `;
+
+                const chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // API key will be injected by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const result = await response.json();
+                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    draftTextarea.value = text;
+                    draftTextarea.classList.remove('hidden');
+                } else {
+                    draftTextarea.value = 'אירעה שגיאה בקבלת הטיוטה. אנא נסה שוב.';
+                    draftTextarea.classList.remove('hidden');
+                    console.error("API response was missing expected text.", result);
+                }
+
+            } catch (error) {
+                console.error('Error generating draft:', error);
+                draftTextarea.value = 'אירעה שגיאה ביצירת הטיוטה. אנא בדוק את החיבור שלך ונסה שוב.';
+                draftTextarea.classList.remove('hidden');
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                generateDraftBtn.disabled = false;
+                playSummaryBtn.disabled = false;
+            }
+        }
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numSamples = pcm16.length;
+            const buffer = new ArrayBuffer(44 + numSamples * 2);
+            const view = new DataView(buffer);
+
+            const writeString = (view, offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + numSamples * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, numSamples * 2, true);
+
+            let offset = 44;
+            for (let i = 0; i < numSamples; i++) {
+                view.setInt16(offset, pcm16[i], true);
+                offset += 2;
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        async function playSummaryTTS() {
+            try {
+                loadingIndicator.classList.remove('hidden');
+                playSummaryBtn.disabled = true;
+                generateDraftBtn.disabled = true;
+                ttsAudio.classList.add('hidden');
+                draftTextarea.classList.add('hidden');
+
+                const summaryText = "התוכנית החדשה משנה את ייעוד הבניין ממגורים למרכז תעסוקה ורפואה. קיימת התנגדות חריפה מצד התושבים בשל שלושה נושאים עיקריים: תקן חניה 0 שיוביל לעומס תנועה וחניה, גובה המבנה שיחסום אור שמש, והשינוי הדרמטי באופי השכונה. זוהי קריאה אחרונה להגיש התנגדויות חדשות לוועדה.";
+
+                const payload = {
+                    contents: [{ parts: [{ text: summaryText }] }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const apiKey = ""; // API key will be injected by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+                
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRate = 16000;
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    ttsAudio.src = audioUrl;
+                    ttsAudio.classList.remove('hidden');
+                    ttsAudio.play();
+                } else {
+                    console.error("API response was missing audio data.", result);
+                }
+
+            } catch (error) {
+                console.error('Error playing summary:', error);
+            } finally {
+                loadingIndicator.classList.add('hidden');
+                playSummaryBtn.disabled = false;
+                generateDraftBtn.disabled = false;
+            }
+        }
+
+        generateDraftBtn.addEventListener('click', generateObjectionDraft);
+        playSummaryBtn.addEventListener('click', playSummaryTTS);
+    </script>
+</body>
+</html>
