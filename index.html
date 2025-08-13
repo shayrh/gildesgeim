@@ -232,6 +232,7 @@
         const ttsAudio = document.getElementById('ttsAudio');
         const loadingIndicator = document.getElementById('loadingIndicator');
 
+        // Function to generate objection draft using LLM
         async function generateObjectionDraft() {
             try {
                 loadingIndicator.classList.remove('hidden');
@@ -255,9 +256,19 @@
                 const chatHistory = [];
                 chatHistory.push({ role: "user", parts: [{ text: prompt }] });
                 const payload = { contents: chatHistory };
-                const apiKey = ""; // API key will be injected by the environment
+                // !!! החלף את הטקסט הבא במפתח ה-API האישי שלך !!!
+                const apiKey = "YOUR_API_KEY_HERE"; 
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
                 
+                if (apiKey === "YOUR_API_KEY_HERE") {
+                    draftTextarea.value = "שגיאה: יש להזין מפתח API אישי בקוד כדי להשתמש בתכונה זו.";
+                    draftTextarea.classList.remove('hidden');
+                    loadingIndicator.classList.add('hidden');
+                    generateDraftBtn.disabled = false;
+                    playSummaryBtn.disabled = false;
+                    return;
+                }
+
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -289,6 +300,7 @@
             }
         }
 
+        // Helper function to convert Base64 to ArrayBuffer
         function base64ToArrayBuffer(base64) {
             const binaryString = window.atob(base64);
             const len = binaryString.length;
@@ -299,6 +311,7 @@
             return bytes.buffer;
         }
 
+        // Helper function to convert PCM to WAV
         function pcmToWav(pcm16, sampleRate) {
             const numSamples = pcm16.length;
             const buffer = new ArrayBuffer(44 + numSamples * 2);
@@ -315,12 +328,12 @@
             writeString(view, 8, 'WAVE');
             writeString(view, 12, 'fmt ');
             view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true);
-            view.setUint16(22, 1, true);
+            view.setUint16(20, 1, true); // Audio format 1=PCM
+            view.setUint16(22, 1, true); // Num channels 1=Mono
             view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * 2, true);
-            view.setUint16(32, 2, true);
-            view.setUint16(34, 16, true);
+            view.setUint32(28, sampleRate * 2, true); // Byte rate
+            view.setUint16(32, 2, true); // Block align
+            view.setUint16(34, 16, true); // Bits per sample
             writeString(view, 36, 'data');
             view.setUint32(40, numSamples * 2, true);
 
@@ -333,6 +346,7 @@
             return new Blob([view], { type: 'audio/wav' });
         }
 
+        // Function to play summary using TTS
         async function playSummaryTTS() {
             try {
                 loadingIndicator.classList.remove('hidden');
@@ -352,9 +366,19 @@
                     model: "gemini-2.5-flash-preview-tts"
                 };
 
-                const apiKey = ""; // API key will be injected by the environment
+                // !!! החלף את הטקסט הבא במפתח ה-API האישי שלך !!!
+                const apiKey = "YOUR_API_KEY_HERE";
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
                 
+                if (apiKey === "YOUR_API_KEY_HERE") {
+                    // This is a simple check. In a real app, you'd want a more robust solution.
+                    console.error("API Key is not set. Please replace 'YOUR_API_KEY_HERE' in the code.");
+                    loadingIndicator.classList.add('hidden');
+                    playSummaryBtn.disabled = false;
+                    generateDraftBtn.disabled = false;
+                    return;
+                }
+
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -369,7 +393,7 @@
                 const mimeType = part?.inlineData?.mimeType;
 
                 if (audioData && mimeType && mimeType.startsWith("audio/")) {
-                    const sampleRate = 16000;
+                    const sampleRate = 16000; // API returns signed PCM16 audio data at 16kHz
                     const pcmData = base64ToArrayBuffer(audioData);
                     const pcm16 = new Int16Array(pcmData);
                     const wavBlob = pcmToWav(pcm16, sampleRate);
@@ -391,6 +415,7 @@
             }
         }
 
+        // Attach event listeners
         generateDraftBtn.addEventListener('click', generateObjectionDraft);
         playSummaryBtn.addEventListener('click', playSummaryTTS);
     </script>
