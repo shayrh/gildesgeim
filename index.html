@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>המאבק על גילדסגיים 6: איפורמטיבי</title>
+    <title>המאבק על גילדסגיים 6: אינפוגרפיקה</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -117,8 +117,8 @@
                     <div class="text-center p-4 border rounded-lg">
                         <h3 class="text-xl font-semibold mb-4">המצב כיום (קו בניין 4 מ')</h3>
                         <div class="flex justify-center items-end h-48 space-x-2 rtl:space-x-reverse">
+                            <div class="w-24 h-16 bg-[#0077B6] rounded-t-lg flex items-center justify-center text-sm text-white">  (וילה)בית שכן</div>
                             <div class="w-24 h-24 bg-[#90E0EF] rounded-t-lg flex items-center justify-center text-sm">בית קיים</div>
-                            <div class="w-24 h-16 bg-[#0077B6] rounded-t-lg flex items-center justify-center text-sm text-white">בית שכן</div>
                         </div>
                         <p class="mt-2 text-sm">מרחק סביר בין מבנים נמוכים</p>
                     </div>
@@ -138,14 +138,11 @@
             <!-- Gemini Features Section -->
             <section id="gemini-features" class="bg-white p-8 rounded-xl shadow-lg text-center">
                 <h2 class="text-3xl font-bold mb-4">כלים מתקדמים למאבק ✨</h2>
-                <p class="text-lg max-w-3xl mx-auto mb-6">השתמשו בכלי הבינה המלאכותית שלנו כדי ליצור טיוטת התנגדות חדשה או להאזין לסיכום התוכנית.</p>
+                <p class="text-lg max-w-3xl mx-auto mb-6">השתמשו בכלי הבינה המלאכותית שלנו כדי ליצור טיוטת התנגדות חדשה.</p>
                 
-                <div class="flex flex-col md:flex-row justify-center gap-4 mb-8">
+                <div class="flex justify-center gap-4 mb-8">
                     <button id="generateDraftBtn" class="bg-[#00A6FB] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#0077B6] transition-colors duration-300">
                         ✨ יצירת טיוטת התנגדות חדשה
-                    </button>
-                    <button id="playSummaryBtn" class="bg-[#00A6FB] text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#0077B6] transition-colors duration-300">
-                        🎧 הקראת סיכום התוכנית
                     </button>
                 </div>
                 
@@ -155,7 +152,6 @@
                 </div>
                 
                 <textarea id="draftTextarea" class="w-full h-64 p-4 border-2 border-[#90E0EF] rounded-lg bg-[#E0FFFF] text-[#004E89] text-lg hidden" readonly placeholder="טיוטת ההתנגדות תוצג כאן..."></textarea>
-                <audio id="ttsAudio" controls class="w-full mt-4 hidden"></audio>
             </section>
             <!-- End Gemini Features Section -->
 
@@ -227,9 +223,7 @@
         // --- Gemini API Features ---
 
         const generateDraftBtn = document.getElementById('generateDraftBtn');
-        const playSummaryBtn = document.getElementById('playSummaryBtn');
         const draftTextarea = document.getElementById('draftTextarea');
-        const ttsAudio = document.getElementById('ttsAudio');
         const loadingIndicator = document.getElementById('loadingIndicator');
 
         // Function to generate objection draft using LLM
@@ -237,9 +231,7 @@
             try {
                 loadingIndicator.classList.remove('hidden');
                 generateDraftBtn.disabled = true;
-                playSummaryBtn.disabled = true;
                 draftTextarea.classList.add('hidden');
-                ttsAudio.classList.add('hidden');
                 draftTextarea.value = '';
 
                 const prompt = `
@@ -265,7 +257,6 @@
                     draftTextarea.classList.remove('hidden');
                     loadingIndicator.classList.add('hidden');
                     generateDraftBtn.disabled = false;
-                    playSummaryBtn.disabled = false;
                     return;
                 }
 
@@ -296,128 +287,11 @@
             } finally {
                 loadingIndicator.classList.add('hidden');
                 generateDraftBtn.disabled = false;
-                playSummaryBtn.disabled = false;
-            }
-        }
-
-        // Helper function to convert Base64 to ArrayBuffer
-        function base64ToArrayBuffer(base64) {
-            const binaryString = window.atob(base64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            return bytes.buffer;
-        }
-
-        // Helper function to convert PCM to WAV
-        function pcmToWav(pcm16, sampleRate) {
-            const numSamples = pcm16.length;
-            const buffer = new ArrayBuffer(44 + numSamples * 2);
-            const view = new DataView(buffer);
-
-            const writeString = (view, offset, string) => {
-                for (let i = 0; i < string.length; i++) {
-                    view.setUint8(offset + i, string.charCodeAt(i));
-                }
-            };
-
-            writeString(view, 0, 'RIFF');
-            view.setUint32(4, 36 + numSamples * 2, true);
-            writeString(view, 8, 'WAVE');
-            writeString(view, 12, 'fmt ');
-            view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true); // Audio format 1=PCM
-            view.setUint16(22, 1, true); // Num channels 1=Mono
-            view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * 2, true); // Byte rate
-            view.setUint16(32, 2, true); // Block align
-            view.setUint16(34, 16, true); // Bits per sample
-            writeString(view, 36, 'data');
-            view.setUint32(40, numSamples * 2, true);
-
-            let offset = 44;
-            for (let i = 0; i < numSamples; i++) {
-                view.setInt16(offset, pcm16[i], true);
-                offset += 2;
-            }
-
-            return new Blob([view], { type: 'audio/wav' });
-        }
-
-        // Function to play summary using TTS
-        async function playSummaryTTS() {
-            try {
-                loadingIndicator.classList.remove('hidden');
-                playSummaryBtn.disabled = true;
-                generateDraftBtn.disabled = true;
-                ttsAudio.classList.add('hidden');
-                draftTextarea.classList.add('hidden');
-
-                const summaryText = "התוכנית החדשה משנה את ייעוד הבניין ממגורים למרכז תעסוקה ורפואה. קיימת התנגדות חריפה מצד התושבים בשל שלושה נושאים עיקריים: תקן חניה 0 שיוביל לעומס תנועה וחניה, גובה המבנה שיחסום אור שמש, והשינוי הדרמטי באופי השכונה. זוהי קריאה אחרונה להגיש התנגדויות חדשות לוועדה.";
-
-                const payload = {
-                    contents: [{ parts: [{ text: summaryText }] }],
-                    generationConfig: {
-                        responseModalities: ["AUDIO"],
-                        speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
-                    },
-                    model: "gemini-2.5-flash-preview-tts"
-                };
-
-                // !!! החלף את הטקסט הבא במפתח ה-API האישי שלך !!!
-                const apiKey = "AIzaSyDb5amsGVf8sdproOA5qOpU7zD6x-qUjp8";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-                
-                if (apiKey === "YOUR_API_KEY_HERE") {
-                    // This is a simple check. In a real app, you'd want a more robust solution.
-                    console.error("API Key is not set. Please replace 'YOUR_API_KEY_HERE' in the code.");
-                    loadingIndicator.classList.add('hidden');
-                    playSummaryBtn.disabled = false;
-                    generateDraftBtn.disabled = false;
-                    return;
-                }
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                
-                const result = await response.json();
-                const part = result?.candidates?.[0]?.content?.parts?.[0];
-                const audioData = part?.inlineData?.data;
-                const mimeType = part?.inlineData?.mimeType;
-
-                if (audioData && mimeType && mimeType.startsWith("audio/")) {
-                    const sampleRate = 16000; // API returns signed PCM16 audio data at 16kHz
-                    const pcmData = base64ToArrayBuffer(audioData);
-                    const pcm16 = new Int16Array(pcmData);
-                    const wavBlob = pcmToWav(pcm16, sampleRate);
-                    const audioUrl = URL.createObjectURL(wavBlob);
-                    
-                    ttsAudio.src = audioUrl;
-                    ttsAudio.classList.remove('hidden');
-                    ttsAudio.play();
-                } else {
-                    console.error("API response was missing audio data.", result);
-                }
-
-            } catch (error) {
-                console.error('Error playing summary:', error);
-            } finally {
-                loadingIndicator.classList.add('hidden');
-                playSummaryBtn.disabled = false;
-                generateDraftBtn.disabled = false;
             }
         }
 
         // Attach event listeners
         generateDraftBtn.addEventListener('click', generateObjectionDraft);
-        playSummaryBtn.addEventListener('click', playSummaryTTS);
     </script>
 </body>
 </html>
