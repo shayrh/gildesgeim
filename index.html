@@ -138,7 +138,7 @@
             <!-- Gemini Features Section -->
             <section id="gemini-features" class="bg-white p-8 rounded-xl shadow-lg text-center">
                 <h2 class="text-3xl font-bold mb-4">כלים מתקדמים למאבק ✨</h2>
-                <p class="text-lg max-w-3xl mx-auto mb-6">הזינו את פרטיכם והשתמשו בכלי הבינה המלאכותית שלנו כדי ליצור טיוטת התנגדות אישית.</p>
+                <p class="text-lg max-w-3xl mx-auto mb-6">הזינו את פרטיכם והשתמשו בכלי הבינה המלאכותית שלנו כדי ליצור טיוטת התנגדות אישית וייחודית.</p>
                 
                 <div class="max-w-md mx-auto space-y-4 mb-6 text-right">
                     <div>
@@ -146,10 +146,18 @@
                         <input type="text" id="fullName" class="w-full p-2 border border-[#90E0EF] rounded-md" placeholder="לדוגמה: ישראל ישראלי">
                     </div>
                     <div>
-                        <label for="propertyAddress" class="block mb-1 font-semibold">כתובת הנכס שלך</label>
+                        <label for="propertyAddress" class="block mb-1 font-semibold">כתובת הנכס</label>
                         <input type="text" id="propertyAddress" class="w-full p-2 border border-[#90E0EF] rounded-md" placeholder="לדוגמה: רחוב הפרחים 1, רמת גן">
                     </div>
-                    <p id="validationMessage" class="text-red-500 text-sm hidden">אנא מלאו את כל השדות.</p>
+                     <div>
+                        <label for="floorNumber" class="block mb-1 font-semibold">קומה</label>
+                        <input type="number" id="floorNumber" class="w-full p-2 border border-[#90E0EF] rounded-md" placeholder="לדוגמה: 3">
+                    </div>
+                    <div>
+                        <label for="personalIssues" class="block mb-1 font-semibold">בעיות אישיות נוספות (אופציונלי)</label>
+                        <textarea id="personalIssues" rows="4" class="w-full p-2 border border-[#90E0EF] rounded-md" placeholder="פרטו כאן חששות או בעיות ספציפיות לכם, למשל: עבודה מהבית, בעיות בריאותיות, ילדים קטנים וכו'."></textarea>
+                    </div>
+                    <p id="validationMessage" class="text-red-500 text-sm hidden">אנא מלאו את כל שדות החובה (שם, כתובת וקומה).</p>
                 </div>
 
                 <div class="flex justify-center gap-4 mb-8">
@@ -239,15 +247,19 @@
         const loadingIndicator = document.getElementById('loadingIndicator');
         const fullNameInput = document.getElementById('fullName');
         const propertyAddressInput = document.getElementById('propertyAddress');
+        const floorNumberInput = document.getElementById('floorNumber');
+        const personalIssuesInput = document.getElementById('personalIssues');
         const validationMessage = document.getElementById('validationMessage');
 
         // Function to generate objection draft using LLM
         async function generateObjectionDraft() {
             const fullName = fullNameInput.value.trim();
             const propertyAddress = propertyAddressInput.value.trim();
+            const floorNumber = floorNumberInput.value.trim();
+            const personalIssues = personalIssuesInput.value.trim();
 
-            // Validation
-            if (!fullName || !propertyAddress) {
+            // Validation for required fields
+            if (!fullName || !propertyAddress || !floorNumber) {
                 validationMessage.classList.remove('hidden');
                 return;
             }
@@ -263,16 +275,20 @@
                 Please act as a helpful assistant for a resident of Ramat Gan.
                 Draft a formal and persuasive objection letter in Hebrew to the Tel Aviv District Planning and Building Committee regarding plan 506-0721704 at 6 Gildesgeim St.
                 
-                The letter must be from the following person and address:
+                **Crucial Instruction: You MUST rephrase and rewrite the letter to ensure it is unique each time. Do not use the exact same wording as previous requests. Vary the sentence structure, vocabulary, and the order of arguments to make every generated letter original.**
+
+                The letter must be from the following person and incorporate their specific details:
                 - Full Name: ${fullName}
                 - Property Address: ${propertyAddress}
+                - Floor Number: ${floorNumber}
+                - Additional Personal Concerns: ${personalIssues || "N/A"}
                 
-                Please make sure to include their name and address in the appropriate places in the letter (e.g., at the top sender details and in the closing).
+                Please make sure to include their name and address in the appropriate places in the letter (e.g., at the top sender details and in the closing). If they provided personal concerns, weave them into the letter naturally as an additional point of impact.
 
                 The main arguments to include are:
                 1.  The dramatic change in the plan's purpose from residential (9 stories) to a large commercial and medical center (7 stories plus commerce). This change, approved after the initial objection phase, fundamentally alters the character of the quiet residential neighborhood.
                 2.  The committee's decision to grant a "0 parking standard" for the commercial/medical spaces is unrealistic and harmful. It ignores the existing severe parking shortage and will lead to significant traffic congestion and competition for parking spaces, directly impacting the quality of life of long-term residents.
-                3.  The committee's insufficient response to the issue of sunlight blockage. The decision to increase the setback by only one meter is a token gesture that does not prevent a 7-story building from casting a permanent shadow on adjacent existing homes, violating the residents' right to light and air.
+                3.  The committee's insufficient response to the issue of sunlight blockage. The decision to increase the setback by only one meter is a token gesture that does not prevent a 7-story building from casting a permanent shadow on adjacent existing homes, violating the residents' right to light and air. Mention that this is particularly concerning for someone living on floor ${floorNumber}.
                 4.  Emphasize that these changes were made after the public comment period, and this new plan deserves a full, fresh review and consideration of the new, more significant, objections.
                 The tone should be formal and determined.
                 `;
